@@ -1,43 +1,60 @@
-# Astro Starter Kit: Minimal
+# La Casa de los Colibrís 🌿✨
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Una hermosa y moderna Landing Page construida para **La Casa de los Colibrís**, un refugio de paz, espiritualidad y permacultura ubicado en Alocén, Guadalajara (España). 
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Este proyecto fue diseñado con un enfoque minimalista, terrenal y *premium*, pensado para transmitir tranquilidad, conexión con la naturaleza y bienestar desde el primer vistazo.
 
-## 🚀 Project Structure
+![Astro](https://img.shields.io/badge/Astro-5.0+-FF5D01?style=for-the-badge&logo=astro&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS_v4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-Inside of your Astro project, you'll see the following folders and files:
+## 🚀 Tecnologías Utilizadas
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+- **[Astro](https://astro.build/)**: Framework web utilizado para la arquitectura del portal. Se eligió por su capacidad de generar sitios estáticos ultrarrápidos y excelente soporte de componentes encapsulados.
+- **[Tailwind CSS (v4)](https://tailwindcss.com/)**: Framework de CSS para maquetar rápidamente una interfaz completamente responsiva, con animaciones fluidas (como `group-hover`, efectos *hover* semánticos, filtros de `backdrop-blur`, etc).
+- **HTML Estático & Vanilla JS**: Para interacciones puntuales del DOM sin sobrecargar el cliente, asegurando altísimos puntajes de rendimiento (Lighthouse).
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 🌟 Características Principales
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- **Diseño Responsivo y *Mobile-First***: Perfectamente optimizado para pantallas móviles, garantizando una lectura cómoda, botones tipo píldora adaptativos y correcta relación de aspecto en imágenes dinámicas.
+- **Diseño *Glassmorphism***: Barra de navegación superior con desenfoque de fondo y anclas fluidas (*smooth-scrolling*) hacia cada sector.
+- **Galería de Servicios y Botica Natural**: Componentes estilo cuadrícula/tarjetas interactivas que exponen los diversos servicios (Temazcal, Retiros, Senderismo, Hospedaje, Terapias) y los productos de venta (Propóleos, Cremas, Sahumerios).
+- **Cultura de Permacultura (Sección Nosotros)**: Una sección educativa estructurada que explica detalladamente las prácticas reales y sostenibles (Manejo del Agua, Compost, Elementos Frutales y Bioconstrucción).
+- **Contacto Activo e Integrado**: Botones de acción preconfigurados para iniciar **Correos Electrónicos** y conversaciones en **WhatsApp**, junto con la incorporación nativa de **Google Maps** señalando la localidad.
 
-Any static assets, like images, can be placed in the `public/` directory.
+## 🛠️ Cómo Iniciar el Proyecto Localmente
 
-## 🧞 Commands
+Si deseas clonar, explorar o continuar expandiendo este sitio:
 
-All commands are run from the root of the project, from a terminal:
+### Requisitos Previos
+- [Node.js](https://nodejs.org/es/) (versión 20.x o superior)
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+### Pasos de Instalación e Inicio
 
-## 👀 Want to learn more?
+1. **Clona el repositorio e ingresa a la carpeta**
+   ```bash
+   git clone https://github.com/tu-usuario/colibris.git
+   cd colibris
+   ```
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+2. **Instala las dependencias**
+   ```bash
+   npm install
+   ```
+
+3. **Inicia el servidor de desarrollo**
+   ```bash
+   npm run dev
+   ```
+
+4. **Visualiza la página**
+   Abre tu navegador y visita la URL indicada en consola (usualmente `http://localhost:4321`). Todos los cambios en la carpeta `src/` se reflejarán instantáneamente.
+
+## 📦 Scripts Disponibles
+
+- `npm run dev`: Inicia el servidor de desarrollo.
+- `npm run build`: Genera el empaquetado optimizado del portal en formato estático para producción (salida en `/dist`).
+- `npm run preview`: Lanza un servidor web local para probar el resultado del build de producción antes de desplegarlo.
+
+---
+
+*Proyecto codeado y estructurado con propósito para conectar la tecnología con la experiencia de la sanación natural.* 💚
