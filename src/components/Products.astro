@@ -1,0 +1,145 @@
+---
+import lavandaImg from '../img/lavanda.jpeg'
+---
+
+<section
+	id='productos'
+	class='py-16 md:py-24 bg-white border-t border-stone-100'
+>
+	<div class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+		<div class='text-center max-w-3xl mx-auto mb-16'>
+			<h2
+				class='text-teal-600 font-semibold tracking-wide uppercase text-sm mb-2'
+			>
+				Botica Natural
+			</h2>
+			<h3 class='text-4xl font-serif text-stone-900 mb-4'>
+				Productos de nuestra tierra
+			</h3>
+			<p class='text-stone-600 text-lg'>
+				Elaboramos artesanalmente remedios y preparaciones con las
+				plantas sagradas de nuestro ecosistema para prolongar tu
+				sanación en casa.
+			</p>
+		</div>
+
+		<div class='grid grid-cols-1 md:grid-cols-3 gap-8'>
+			{/* Propóleos */}
+			<div
+				class='bg-amber-50 rounded-3xl p-8 hover:-translate-y-2 transition-transform duration-300 shadow-sm hover:shadow-xl border border-amber-100 flex flex-col items-center text-center'
+			>
+				<div
+					class='w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center text-amber-600 mb-6'
+				>
+					<!-- Frasco icon -->
+					<svg
+						class='h-8 w-8'
+						fill='none'
+						viewBox='0 0 24 24'
+						stroke='currentColor'
+						><path
+							stroke-linecap='round'
+							stroke-linejoin='round'
+							stroke-width='1.5'
+							d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'
+						></path></svg
+					>
+				</div>
+				<h4 class='text-2xl font-serif text-stone-900 mb-4'>
+					Propóleos
+				</h4>
+				<p class='text-stone-600'>
+					Extracto puro. Un aliado natural brillante para fortalecer
+					tu sistema inmunológico y suavizar las vías respiratorias en
+					invierno.
+				</p>
+			</div>
+
+			{/* Cuidado (Central y Destacado) */}
+			<div
+				class='bg-stone-50 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-stone-200 flex flex-col relative md:-mt-4 md:mb-4 group'
+			>
+				<div class='h-48 relative overflow-hidden'>
+					<img
+						src={lavandaImg.src}
+						alt='Lavanda y plantas'
+						class='w-full h-full object-cover transition-transform duration-700 group-hover:scale-105'
+						onerror="this.src='https://images.unsplash.com/photo-1611079830811-865ff4428059?w=800&q=80'"
+					/>
+					<div
+						class='absolute inset-0 bg-stone-900/40 group-hover:bg-stone-900/20 transition-colors duration-300'
+					>
+					</div>
+					<h4
+						class='absolute bottom-4 left-6 right-6 text-2xl font-serif text-white font-medium drop-shadow-md'
+					>
+						Cuidado Físico
+					</h4>
+				</div>
+				<div class='p-8 flex-grow bg-white'>
+					<ul
+						class='space-y-5 text-stone-600 h-full flex flex-col justify-center'
+					>
+						<li class='flex items-start'>
+							<span class='text-teal-500 mr-3 mt-1 text-lg'
+								>✦</span
+							>
+							<span
+								><strong>Cremas y Aceite hipérico:</strong> Extractos
+								reparadores para tu piel.</span
+							>
+						</li>
+						<li class='flex items-start'>
+							<span class='text-teal-500 mr-3 mt-1 text-lg'
+								>✦</span
+							>
+							<span
+								><strong>Oleatos e Hidrolatos:</strong> Purificación
+								con lavanda, romero y tomillo frescos.</span
+							>
+						</li>
+						<li class='flex items-start'>
+							<span class='text-teal-500 mr-3 mt-1 text-lg'
+								>✦</span
+							>
+							<span
+								><strong>CBD:</strong> Extracto premium relajante
+								para balances antiinflamatorios.</span
+							>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			{/* Sahumerios */}
+			<div
+				class='bg-emerald-50 rounded-3xl p-8 hover:-translate-y-2 transition-transform duration-300 shadow-sm hover:shadow-xl border border-emerald-100 flex flex-col items-center text-center'
+			>
+				<div
+					class='w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 mb-6'
+				>
+					<svg
+						class='h-8 w-8'
+						fill='none'
+						viewBox='0 0 24 24'
+						stroke='currentColor'
+						><path
+							stroke-linecap='round'
+							stroke-linejoin='round'
+							stroke-width='1.5'
+							d='M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z'
+						></path></svg
+					>
+				</div>
+				<h4 class='text-2xl font-serif text-stone-900 mb-4'>
+					Sahumerios
+				</h4>
+				<p class='text-stone-600'>
+					Confeccionados trenzando finamente nuestras plantas
+					medicinales. Ideales para limpiar la pesada energía de
+					cualquier espacio.
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
