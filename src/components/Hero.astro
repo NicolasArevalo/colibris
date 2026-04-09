@@ -1,5 +1,6 @@
 ---
-import heroImg from '../img/viewW.jpeg'
+import { Image } from 'astro:assets'
+import heroImg from '../img/ViewW2.png'
 ---
 
 <section
@@ -7,10 +8,13 @@ import heroImg from '../img/viewW.jpeg'
 	class='relative h-screen flex items-center justify-center overflow-hidden'
 >
 	<div class='absolute inset-0 z-0'>
-		<img
-			src={heroImg.src}
+		<Image
+			src={heroImg}
 			alt='Vista de La Casa de los Colibrís'
 			class='w-full h-full object-cover object-center'
+			loading='eager'
+			fetchpriority='high'
+			quality={'high'}
 		/>
 		<div class='absolute inset-0 bg-stone-900/40 mix-blend-multiply'></div>
 		<div
