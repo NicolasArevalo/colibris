@@ -10,9 +10,20 @@
 			<div class='flex-shrink-0 flex items-center'>
 				<a
 					href='#inicio'
-					class='text-2xl font-serif font-semibold text-teal-800 tracking-tight flex items-center gap-2'
+					class='grid items-center'
 				>
-					La casa de los colibrís
+					<img 
+						src="/favicon.png" 
+						alt="Logo La Casa de los Colibrís" 
+						class="h-10 w-auto transition-opacity duration-500 opacity-100 col-start-1 row-start-1 justify-self-start" 
+						id="nav-logo" 
+					/>
+					<span 
+						class="text-[1.35rem] sm:text-2xl font-serif font-semibold text-teal-800 tracking-tight transition-opacity duration-500 opacity-0 col-start-1 row-start-1 whitespace-nowrap justify-self-start" 
+						id="nav-text"
+					>
+						La Casa de los Colibrís
+					</span>
 				</a>
 			</div>
 			<nav class='hidden md:flex space-x-8'>
@@ -132,4 +143,22 @@
 			menu?.classList.add('hidden')
 		})
 	})
+
+	const navLogo = document.getElementById('nav-logo')
+	const navText = document.getElementById('nav-text')
+
+	const handleScroll = () => {
+		if (window.scrollY > 250) {
+			navLogo?.classList.replace('opacity-100', 'opacity-0');
+			navText?.classList.replace('opacity-0', 'opacity-100');
+		} else {
+			navLogo?.classList.replace('opacity-0', 'opacity-100');
+			navText?.classList.replace('opacity-100', 'opacity-0');
+		}
+	}
+
+	window.addEventListener('scroll', handleScroll, { passive: true })
+	// Inicializar estado  
+	document.addEventListener('DOMContentLoaded', handleScroll)
+	handleScroll()
 </script>

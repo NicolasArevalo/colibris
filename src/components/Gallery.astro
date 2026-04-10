@@ -14,14 +14,32 @@ const images = Object.values(imageFiles).map((file: any) => file.default?.src ? 
 	</div>
 
 	{/* Mobile-first horizontal scroll gallery */}
-	<div class='w-full overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide'>
-		<div class='flex gap-4 px-4 sm:px-6 lg:px-8 w-max'>
-			{
+	<div class='relative group max-w-[100vw]'>
+		{/* Navigation buttons (Desktop only) */}
+		<button 
+			id="gallery-left-btn" 
+			class="hidden md:flex absolute left-8 top-1/2 -translate-y-[calc(50%+1rem)] z-10 bg-white/70 hover:bg-white text-stone-800 rounded-full p-3 shadow-lg backdrop-blur-sm transition-all duration-300 opacity-0 pointer-events-none items-center justify-center border border-stone-200/50"
+			aria-label="Anterior imagen"
+		>
+			<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+		</button>
+		
+		<button 
+			id="gallery-right-btn" 
+			class="hidden md:flex absolute right-8 top-1/2 -translate-y-[calc(50%+1rem)] z-10 bg-white/70 hover:bg-white text-stone-800 rounded-full p-3 shadow-lg backdrop-blur-sm transition-all duration-300 items-center justify-center border border-stone-200/50"
+			aria-label="Siguiente imagen"
+		>
+			<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+		</button>
+
+		<div id="gallery-container" class='w-full overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide scroll-smooth'>
+			<div class='flex gap-4 px-4 sm:px-6 lg:px-8 w-max'>
+				{
 				images.map((src) => (
 					<div class='relative w-72 h-96 sm:w-80 sm:h-[400px] flex-none snap-center rounded-2xl overflow-hidden shadow-lg group'>
 						<img
 							src={src}
-							alt='Galería de La casa de los colibrís'
+							alt='Galería de La Casa de los Colibrís'
 							class='w-full h-full object-cover transition-transform duration-700 group-hover:scale-105'
 							loading='lazy'
 						/>
@@ -29,7 +47,59 @@ const images = Object.values(imageFiles).map((file: any) => file.default?.src ? 
 				))
 			}
 		</div>
+		</div>
 	</div>
+
+	<script>
+		const setupGallery = () => {
+			const container = document.getElementById('gallery-container');
+			const leftBtn = document.getElementById('gallery-left-btn');
+			const rightBtn = document.getElementById('gallery-right-btn');
+
+			if (!container || !leftBtn || !rightBtn) return;
+
+			const updateButtons = () => {
+				// Show/hide left button
+				if (container.scrollLeft > 20) {
+					leftBtn.classList.remove('opacity-0', 'pointer-events-none');
+					leftBtn.classList.add('opacity-100');
+				} else {
+					leftBtn.classList.add('opacity-0', 'pointer-events-none');
+					leftBtn.classList.remove('opacity-100');
+				}
+
+				// Show/hide right button
+				if (Math.ceil(container.scrollLeft + container.clientWidth) >= container.scrollWidth - 20) {
+					rightBtn.classList.add('opacity-0', 'pointer-events-none');
+					rightBtn.classList.remove('opacity-100');
+				} else {
+					rightBtn.classList.remove('opacity-0', 'pointer-events-none');
+					rightBtn.classList.add('opacity-100');
+				}
+			};
+
+			container.addEventListener('scroll', updateButtons, { passive: true });
+			window.addEventListener('resize', updateButtons, { passive: true });
+			
+			// Initial check wait for layout
+			setTimeout(updateButtons, 100);
+
+			leftBtn.addEventListener('click', () => {
+				const scrollAmount = container.clientWidth * 0.7; 
+				container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+			});
+
+			rightBtn.addEventListener('click', () => {
+				const scrollAmount = container.clientWidth * 0.7;
+				container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+			});
+		};
+
+		// Run setup
+		setupGallery();
+		// If using Astro View Transitions, re-run on page load
+		document.addEventListener('astro:page-load', setupGallery);
+	</script>
 
 	<style>
 		/* Hide scrollbar for Chrome, Safari and Opera */
