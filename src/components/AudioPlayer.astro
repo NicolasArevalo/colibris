@@ -1,0 +1,235 @@
+---
+import entrevistafelixMp3 from '../img/Entrevistafelix.mp3'
+---
+
+<div class="audio-player max-w-4xl mx-auto bg-white/95 backdrop-blur-md border border-stone-200/80 rounded-2xl md:rounded-3xl shadow-xl hover:shadow-2xl transition-shadow p-5 md:p-8 flex flex-col gap-5 relative overflow-hidden group">
+    
+    <!-- Top: Title and Time -->
+    <div class="flex justify-between items-end px-1 z-10">
+        <div class="flex flex-col">
+            <span class="text-xs font-semibold text-teal-600 tracking-wider uppercase mb-1">Un momento en la naturaleza</span>
+            <span class="text-xl md:text-2xl font-serif text-stone-900 tracking-tight">Charla con Félix</span>
+        </div>
+        <span id="time-display" class="text-sm md:text-base font-mono font-medium text-teal-800 bg-stone-100/80 border border-stone-200 px-3 py-1 md:py-1.5 rounded-lg">
+            00:00
+        </span>
+    </div>
+    
+    <!-- Middle: Progress Bar -->
+    <div id="progress-container" class="h-2.5 md:h-3.5 bg-stone-200 rounded-full relative cursor-pointer w-full overflow-hidden hover:h-4 group-hover:bg-stone-300 transition-all z-10 mt-2 shadow-inner">
+        <div id="progress-bar" class="absolute top-0 left-0 h-full bg-gradient-to-r from-teal-400 to-emerald-500 rounded-full transition-all duration-75 ease-linear pointer-events-none" style="width: 0%"></div>
+    </div>
+
+    <!-- Bottom: Controls -->
+    <div class="flex items-center justify-between mt-3 z-10">
+        
+        <!-- Play / Pause -->
+        <button id="play-btn" class="flex-shrink-0 w-14 h-14 md:w-16 md:h-16 bg-teal-600 text-white rounded-full flex items-center justify-center hover:bg-teal-700 hover:scale-105 transition-all focus:outline-none focus:ring-4 focus:ring-teal-500/30 shadow-lg cursor-pointer">
+            <svg id="play-icon" class="w-6 h-6 md:w-7 md:h-7 ml-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M4 4l12 6-12 6z"></path>
+            </svg>
+            <svg id="pause-icon" class="w-6 h-6 md:w-7 md:h-7 hidden transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M5 4h3v12H5V4zm7 0h3v12h-3V4z"></path>
+            </svg>
+        </button>
+
+        <!-- Right Side: Volume & Speed -->
+        <div class="flex items-center gap-3 md:gap-5 bg-stone-50/80 border border-stone-200 md:bg-transparent md:border-transparent rounded-2xl px-4 py-2.5 md:p-0">
+            
+            <!-- Volume Control -->
+            <div class="flex items-center gap-2.5 group/volume">
+                <button id="mute-btn" class="text-stone-500 hover:text-teal-600 transition-colors focus:outline-none">
+                    <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path id="vol-icon-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+                    </svg>
+                </button>
+                <div class="w-20 md:w-28 h-1.5 md:h-2 bg-stone-300 rounded-full relative cursor-pointer hover:bg-stone-400 overflow-hidden" id="volume-container">
+                    <div id="volume-bar" class="absolute top-0 left-0 h-full bg-teal-600 rounded-full pointer-events-none" style="width: 100%"></div>
+                </div>
+            </div>
+
+            <div class="w-[1px] h-6 bg-stone-300 hidden md:block"></div>
+
+            <!-- Speed Control -->
+            <button id="speed-btn" class="text-sm md:text-base font-mono font-semibold text-stone-600 hover:text-teal-700 bg-white border border-stone-300 hover:border-teal-400 px-3 py-1.5 md:px-4 rounded-xl transition-all min-w-[3.5rem] md:min-w-[4rem] text-center shadow-sm">
+                1x
+            </button>
+        </div>
+    </div>
+
+    <!-- Background Decoration -->
+    <div class="absolute -right-6 -bottom-6 text-teal-600/5 pointer-events-none transform -rotate-12">
+        <svg class="w-56 h-56 md:w-72 md:h-72" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V7.28l8-1.6V13.114A4.369 4.369 0 0015 13c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V3z"></path>
+        </svg>
+    </div>
+
+    <audio id="audio-element" src={entrevistafelixMp3} preload="metadata"></audio>
+</div>
+
+<script>
+    class AdvancedAudioPlayer {
+        constructor() {
+            const el = id => document.getElementById(id);
+            this.audio = el('audio-element');
+            if (!this.audio) return;
+            
+            // Elements
+            this.playBtn = el('play-btn');
+            this.playIcon = el('play-icon');
+            this.pauseIcon = el('pause-icon');
+            
+            this.progressBarContainer = el('progress-container');
+            this.progressBar = el('progress-bar');
+            this.timeDisplay = el('time-display');
+            
+            this.volumeContainer = el('volume-container');
+            this.volumeBar = el('volume-bar');
+            this.muteBtn = el('mute-btn');
+            this.volIconPath = el('vol-icon-path');
+            
+            this.speedBtn = el('speed-btn');
+
+            // State
+            this.isPlaying = false;
+            this.duration = 0;
+            this.playbackRates = [1, 1.25, 1.5, 2];
+            this.currentRateIndex = 0;
+            this.isMuted = false;
+            this.lastVolume = 1;
+
+            this.init();
+        }
+
+        formatTime(seconds) {
+            if (isNaN(seconds)) return "00:00";
+            const m = Math.floor(seconds / 60);
+            const s = Math.floor(seconds % 60);
+            return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+
+        init() {
+            if (this.audio.readyState >= 1) {
+                this.duration = this.audio.duration;
+                this.timeDisplay.textContent = this.formatTime(this.duration);
+            } else {
+                this.audio.addEventListener('loadedmetadata', () => {
+                    this.duration = this.audio.duration;
+                    this.timeDisplay.textContent = this.formatTime(this.duration);
+                });
+            }
+
+            // Playback
+            this.playBtn?.addEventListener('click', () => this.togglePlay());
+            this.audio.addEventListener('play', () => this.updatePlayState(true));
+            this.audio.addEventListener('pause', () => this.updatePlayState(false));
+            
+            // Progress
+            this.audio.addEventListener('timeupdate', () => this.updateProgress());
+            this.progressBarContainer?.addEventListener('click', (e) => this.seek(e));
+            
+            // Volume
+            this.volumeContainer?.addEventListener('click', (e) => this.setVolume(e));
+            // Support dragging for volume
+            let isDraggingVol = false;
+            this.volumeContainer?.addEventListener('mousedown', () => { isDraggingVol = true; });
+            document.addEventListener('mousemove', (e) => { if(isDraggingVol) this.setVolume(e); });
+            document.addEventListener('mouseup', () => { isDraggingVol = false; });
+            
+            this.muteBtn?.addEventListener('click', () => this.toggleMute());
+            
+            // Speed
+            this.speedBtn?.addEventListener('click', () => this.toggleSpeed());
+        }
+
+        togglePlay() {
+            if (this.isPlaying) this.audio.pause();
+            else this.audio.play();
+        }
+
+        updatePlayState(playing) {
+            this.isPlaying = playing;
+            if (playing) {
+                this.playIcon?.classList.add('hidden');
+                this.pauseIcon?.classList.remove('hidden');
+            } else {
+                this.playIcon?.classList.remove('hidden');
+                this.pauseIcon?.classList.add('hidden');
+            }
+        }
+
+        updateProgress() {
+            if (!this.duration) this.duration = this.audio.duration;
+            if (this.duration && this.progressBar && this.timeDisplay) {
+                const currentTime = this.audio.currentTime;
+                const progressPercent = (currentTime / this.duration) * 100;
+                this.progressBar.style.width = `${progressPercent}%`;
+                
+                const remaining = this.duration - currentTime;
+                this.timeDisplay.textContent = `-${this.formatTime(remaining)}`;
+            }
+        }
+
+        seek(e) {
+            if (!this.duration || !this.progressBarContainer) return;
+            const rect = this.progressBarContainer.getBoundingClientRect();
+            let clickPercent = (e.clientX - rect.left) / rect.width;
+            clickPercent = Math.max(0, Math.min(1, clickPercent));
+            this.audio.currentTime = clickPercent * this.duration;
+        }
+
+        setVolume(e) {
+            if (!this.volumeContainer) return;
+            const rect = this.volumeContainer.getBoundingClientRect();
+            let newVolume = (e.clientX - rect.left) / rect.width;
+            newVolume = Math.max(0, Math.min(1, newVolume));
+            
+            this.audio.volume = newVolume;
+            this.lastVolume = newVolume;
+            this.isMuted = newVolume === 0;
+            this.updateVolumeUI();
+        }
+
+        toggleMute() {
+            if (this.isMuted) {
+                this.audio.volume = this.lastVolume > 0 ? this.lastVolume : 1;
+                this.isMuted = false;
+            } else {
+                this.lastVolume = this.audio.volume;
+                this.audio.volume = 0;
+                this.isMuted = true;
+            }
+            this.updateVolumeUI();
+        }
+
+        updateVolumeUI() {
+            if (this.volumeBar) {
+                this.volumeBar.style.width = this.isMuted ? '0%' : `${this.audio.volume * 100}%`;
+            }
+            
+            if (this.volIconPath) {
+                if (this.isMuted || this.audio.volume === 0) {
+                    // Muted 'X' icon
+                    this.volIconPath.setAttribute('d', 'M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2');
+                } else if (this.audio.volume < 0.5) {
+                    // Low Volume
+                    this.volIconPath.setAttribute('d', 'M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z M15.536 8.464a5 5 0 010 7.072');
+                } else {
+                    // High volume
+                    this.volIconPath.setAttribute('d', 'M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z');
+                }
+            }
+        }
+
+        toggleSpeed() {
+            this.currentRateIndex = (this.currentRateIndex + 1) % this.playbackRates.length;
+            const newRate = this.playbackRates[this.currentRateIndex];
+            this.audio.playbackRate = newRate;
+            if (this.speedBtn) {
+                this.speedBtn.textContent = `${newRate}x`;
+            }
+        }
+    }
+
+    new AdvancedAudioPlayer();
+</script>
